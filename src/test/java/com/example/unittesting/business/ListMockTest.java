@@ -1,6 +1,8 @@
 package com.example.unittesting.business;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
@@ -52,6 +54,17 @@ public class ListMockTest {
         verify(mock, atLeastOnce()).get(anyInt());
         verify(mock, atMost(2)).get(anyInt());
         verify(mock, never()).get(2);
+    }
 
+    @Test
+    public void argumentCapturing() {
+        //SUT
+        mock.add(("SomeString"));
+
+        //Verification
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+        verify(mock).add(captor.capture());
+
+        assertEquals("SomeString", captor.getValue());
     }
 }
