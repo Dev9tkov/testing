@@ -1,25 +1,26 @@
 package com.example.unittesting.business;
 
 import com.example.unittesting.data.SomeDataService;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SomeBuisnessMockTest {
 
-    SomeBuisness buisness = new SomeBuisness();
-    SomeDataService dataServiceMock = mock(SomeDataService.class);
+    @InjectMocks
+    SomeBuisness buisness;
 
-    @BeforeEach
-    public void before() {
-        buisness.setSomeDataService(dataServiceMock);
-    }
+    @Mock
+    SomeDataService dataServiceMock;
 
     @Test
-    void calculateSumUsingDataService_basic() {
+    public void calculateSumUsingDataService_basic() {
         when(dataServiceMock.retrieveAllData())
                 .thenReturn(new int[] {1, 2, 3});
         int res = buisness.calculateSumUsingDataService();
@@ -27,9 +28,8 @@ public class SomeBuisnessMockTest {
         assertEquals(expected, res);
     }
 
-
     @Test
-    void calculateSumUsingDataService_empty() {
+    public void calculateSumUsingDataService_empty() {
         when(dataServiceMock.retrieveAllData())
                 .thenReturn(new int[] {});
         int res = buisness.calculateSumUsingDataService();
@@ -38,7 +38,7 @@ public class SomeBuisnessMockTest {
     }
 
     @Test
-    void calculateSumUsingDataService_oneValue() {
+    public void calculateSumUsingDataService_oneValue() {
         when(dataServiceMock.retrieveAllData())
                 .thenReturn(new int[] {5});
         int res = buisness.calculateSumUsingDataService();
