@@ -4,46 +4,32 @@ import com.example.unittesting.data.SomeDataService;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-class SomeDataServiceStub implements SomeDataService {
-
-    @Override
-    public int[] retrieveAllData() {
-        return new int[] {1, 2, 3};
-    }
-}
-
-class SomeDataServiceEmptyStub implements SomeDataService {
-
-    @Override
-    public int[] retrieveAllData() {
-        return new int[] {};
-    }
-}
-
-class SomeDataServiceOneElemStub implements SomeDataService {
-
-    @Override
-    public int[] retrieveAllData() {
-        return new int[] {5};
-    }
-}
-
-class SomeBuisnessStubTest {
+public class SomeBuisnessMockTest {
 
     @Test
     void calculateSumUsingDataService_basic() {
         SomeBuisness buisness = new SomeBuisness();
-        buisness.setSomeDataService(new SomeDataServiceStub());
+        SomeDataService dataServiceMock = mock(SomeDataService.class);
+        //dataServiceMock retrieveAllData new int[] {1, 2, 3}
+        when(dataServiceMock.retrieveAllData())
+                .thenReturn(new int[] {1, 2, 3});
+        buisness.setSomeDataService(dataServiceMock);
         int res = buisness.calculateSumUsingDataService();
         int expected = 6;
         assertEquals(expected, res);
     }
 
+
     @Test
     void calculateSumUsingDataService_empty() {
         SomeBuisness buisness = new SomeBuisness();
-        buisness.setSomeDataService(new SomeDataServiceEmptyStub());
+        SomeDataService dataServiceMock = mock(SomeDataService.class);
+        when(dataServiceMock.retrieveAllData())
+                .thenReturn(new int[] {});
+        buisness.setSomeDataService(dataServiceMock);
         int res = buisness.calculateSumUsingDataService();
         int expected = 0;
         assertEquals(expected, res);
@@ -52,9 +38,13 @@ class SomeBuisnessStubTest {
     @Test
     void calculateSumUsingDataService_oneValue() {
         SomeBuisness buisness = new SomeBuisness();
-        buisness.setSomeDataService(new SomeDataServiceOneElemStub());
+        SomeDataService dataServiceMock = mock(SomeDataService.class);
+        when(dataServiceMock.retrieveAllData())
+                .thenReturn(new int[] {5});
+        buisness.setSomeDataService(dataServiceMock);
         int res = buisness.calculateSumUsingDataService();
         int expected = 5;
         assertEquals(expected, res);
     }
+
 }
