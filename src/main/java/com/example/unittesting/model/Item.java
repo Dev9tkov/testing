@@ -1,19 +1,37 @@
 package com.example.unittesting.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.util.Objects;
 
+@Entity
 public class Item {
-
+    @Id
     private int id;
     private String name;
     private int price;
     private int quantity;
+    @Transient
+    private int value;
 
-    public Item(int id, String name, int price, int quantity) {
+    public Item(int id, String name, int price, int quantity, int value) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+        this.value = value;
+    }
+
+    public Item() {
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public int getId() {
@@ -49,16 +67,6 @@ public class Item {
     }
 
     @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -66,11 +74,23 @@ public class Item {
         return id == item.id &&
                 price == item.price &&
                 quantity == item.quantity &&
+                value == item.value &&
                 Objects.equals(name, item.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, quantity);
+        return Objects.hash(id, name, price, quantity, value);
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", value=" + value +
+                '}';
     }
 }

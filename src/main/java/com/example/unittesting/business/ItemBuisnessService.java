@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class ItemBuisnessService {
     public Item retreiveHardcodedItem() {
-        return new Item(1, "Ball", 10, 100);
+        return new Item(1, "Ball", 10, 100, 10);
     }
 }
