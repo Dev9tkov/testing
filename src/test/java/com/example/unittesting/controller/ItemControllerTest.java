@@ -44,7 +44,7 @@ public class ItemControllerTest {
     @Test
     public void itemFromBuisnessService_basic() throws Exception {
         when(buisnessService.retreiveHardcodedItem()).
-                thenReturn(new Item(2, "Item2", 10, 10, 10));
+                thenReturn(new Item(2, "Item2", 10, 10));
         RequestBuilder request = MockMvcRequestBuilders
                 .get("/item-from-buisness-service")
                 .accept(MediaType.APPLICATION_JSON);
